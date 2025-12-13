@@ -1,0 +1,86 @@
+<h1 class="app-main-title">IpInfoTest</h1>
+{# Uncomment this to see how translations work: <h1 class="app-main-title">{{ appName }}</h1> #}
+
+{# DO NOT DELETE FOLLOWING LINE, OR `php hubleto` WILL NOT GENERATE CODE HERE #}
+{# @hubleto-cli:buttons #}
+
+<div class="grid grid-cols-2 gap-2">
+  <div class="card card-blue">
+    <div class="card-header">
+      Tvoja IP adresa je:
+      {{ viewParams.ip }}
+    </div>
+    <div class="card-body p-8">
+      <button id="link" class="btn p-2">Ziskaj ip info</button>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-header">
+      Informácie o tvojej IP:
+    </div>
+    <div class="card-body p-8">
+      <table>
+        <thead>
+          <tr>
+            <th class="w-48" style="text-align:left;">key</th>
+            <th style="text-align:left">value</th>
+          </tr>
+        </thead>
+        <tbody id="ipinfo">
+
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+</div>
+
+<div class="mt-4 card grid">
+  <div class="card card-green">
+    <div class="card-header">
+      Oblubene Ip adresy:
+    </div>
+    <div class="card-body p-8">
+      <table>
+        <thead></thead>
+        <tbody id="ipinfo">
+          {% for ip in viewParams.data %}
+          {{'<tr>'}}
+            {{ ['<td>', ip.id, '</td>']|join|raw }}
+            {{ ['<td>', ip.status, '</td>']|join|raw }}
+            {{'</tr>'}}
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const link = document.getElementById("link");
+    const ipinfo = document.getElementById("ipinfo");
+
+    link.addEventListener("click", async () => {
+      /*ipinfo.innerHTML = `<tr>
+    <th class="w-48" style="text-align:left;">key</th>
+    <th style="text-align:left">value</th>
+  </tr>`;*/
+      let data = {};
+      await fetch('https://api.techniknews.net/ipgeo/{{ viewParams.ip }}').then(response => response.json()).then(obj => {
+        for (let key in obj) {
+          ipinfo.innerHTML += `<tr style="">
+<td style="">${key}</td>
+<td style="">${obj[key]}</td></tr>`;
+        }
+      });
+      // style="border: 1px black solid"
+    });
+
+
+  });
+</script>
