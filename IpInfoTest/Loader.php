@@ -21,7 +21,10 @@ class Loader extends \Hubleto\Framework\App
       '/^ipinfotest\/?$/' => Controllers\Home::class,
       '/^ipinfotest\/test\/?$/' => Controllers\Novy::class,
       '/^settings\/ipinfotest\/?$/' => Controllers\Settings::class,
+      '/^ipinfotest\/api\/insert-ip-info?$/' => Controllers\Api\InsertIpInfo::class,
     ]);
+
+
     // DO NOT DELETE FOLLOWING LINE, OR `php hubleto` WILL NOT GENERATE CODE HERE
     // @hubleto-cli:routes
 
