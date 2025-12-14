@@ -9,7 +9,7 @@ interface TableInfoProps extends HubletoTableProps {
   status: string,
   showAsCards?: boolean;
 }
-
+//
 interface TableInfoState extends HubletoTableState {
   tableValuesDescription?: any,
 }
